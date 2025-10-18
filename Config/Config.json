@@ -1,0 +1,33 @@
+{
+    "MQTT-Config": {
+        "IP": "192.168.188.105",
+        "PORT": "9001",
+        "CLIENT-ID": "Test",
+        "USER": "jonathan",
+        "PASSWORD": "iiius_admin"
+    },
+    "MQTT-ANIMATION-CANCEL": [
+        {
+            "SUBSCRIBE": "system/led/custom",
+            "PAYLOAD": "Important Key value in Message",
+            "DEFAULT-IMAGE": "Path Folder with Default"
+        }
+    ],
+    "MQTT-ANIMATION-LOOP": [
+        {
+            "SUBSCRIBE": "system/led/custom",
+            "PAYLOAD": "Important Key value in Message",
+            "IMAGES": "Path Folder with Images for animation",
+            "ANIMATION-DURATION": "ANimation time for one Cycle"
+        }
+    ],
+    "MQTT-ANIMATION-COUNT": [
+        {
+            "SUBSCRIBE": "system/led/custom",
+            "PAYLOAD": "Important Key value in Message",
+            "IMAGES": "Path Folder with Images for animation",
+            "ANIMATION-DURATION": "ANimation time for one Cycle",
+            "ANIMATION-COUNT" : 10
+        }
+    ]
+}

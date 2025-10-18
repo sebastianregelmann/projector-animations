@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="ProjectorAnimations"
-run/main_scene="uid://d0ocx6ft4xa40"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+run/main_scene="uid://b25edawcrlfs8"
+config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [dotnet]
