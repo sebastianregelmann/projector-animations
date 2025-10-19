@@ -1,0 +1,20 @@
+{
+    "Messages": [
+        {
+            "Topic": "Topic_1/Test_1",
+            "Message": "{\"Value_1\" : 10}"
+        },
+        {
+            "Topic": "Topic_1/Test_1",
+            "Message": "{\"Value_1\" : 100}"
+        },
+        {
+            "Topic": "Topic_1/Test_2",
+            "Message": "{\"Value_2\" : 2}"
+        },
+        {
+            "Topic": "Topic_3",
+            "Message": "{\"Value_1\" : 10}"
+        }
+    ]
+}
