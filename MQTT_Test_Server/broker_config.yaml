@@ -1,14 +1,16 @@
 ---
 listeners:
   default:
-    type: ws
-    bind: localhost:1883
+    type: tcp
+    bind: localhost:9001
+    
 timeout_disconnect_delay: 0
 plugins:
   amqtt.plugins.logging_amqtt.EventLoggerPlugin:
   amqtt.plugins.logging_amqtt.PacketLoggerPlugin:
   amqtt.plugins.authentication.FileAuthPlugin:
     password_file: "passwords.txt"
+    
   
   amqtt.plugins.sys.broker.BrokerSysPlugin:
     sys_interval: 20

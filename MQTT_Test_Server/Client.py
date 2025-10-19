@@ -8,12 +8,12 @@ from amqtt.errors import ClientError
 # MQTT CONNECTION CONFIG
 # ======================
 BROKER_HOST = "localhost"
-BROKER_PORT = 1883
-USERNAME = "user_1"
-PASSWORD = "password_1"
-PROTOCOL = "ws"  # Use 'mqtt' for TCP, 'ws' for WebSocket
+BROKER_PORT = 9001
+USERNAME = "user_3"
+PASSWORD = "password_3"
+PROTOCOL = "mqtt"  # Use 'mqtt' for TCP, 'ws' for WebSocket
 MESSAGE_FILE = "Messages.json" 
-PUBLISH_INTERVAL = 10  # seconds
+PUBLISH_INTERVAL = 1  # seconds
 # ======================
 
 #local variables

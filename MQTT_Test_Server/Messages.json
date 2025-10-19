@@ -1,20 +1,28 @@
 {
     "Messages": [
         {
-            "Topic": "Topic_1/Test_1",
-            "Message": "{\"Value_1\" : 10}"
+            "Topic": "system/status",
+            "Message": "{\"Value_1\" : 10 Message for cancel} "
+        },
+        {
+            "Topic": "system",
+            "Message": "other payload for cancel {\"Value_1\" : 100} "
+        },
+        {
+            "Topic": "system/led",
+            "Message": "{\"Value_2\" : 2, \n \"LED\" = \"Red\"}"
+        },
+        {
+            "Topic": "system/status",
+            "Message": "Start Loop"
+        },
+        {
+            "Topic": "system/status",
+            "Message": "{\"COUNT\": 10,\n\"Value_1\" : 10}"
         },
         {
             "Topic": "Topic_1/Test_1",
-            "Message": "{\"Value_1\" : 100}"
-        },
-        {
-            "Topic": "Topic_1/Test_2",
-            "Message": "{\"Value_2\" : 2}"
-        },
-        {
-            "Topic": "Topic_3",
-            "Message": "{\"Value_1\" : 10}"
+            "Message": "{\"Value_1\" : 10} + start count rest of message"
         }
     ]
 }

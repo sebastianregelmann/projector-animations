@@ -8,8 +8,8 @@ from passlib.hash import sha512_crypt
 
 
 #Write Passwords into the passwords file
-USER = ["user_1", "user_2"]
-PASSWORDS = ["password_1", "password_2"]
+USER = ["user_1", "user_2", "user_3"]
+PASSWORDS = ["password_1", "password_2", "password_3"]
 PASSWORD_PATH = "passwords.txt"
 
 

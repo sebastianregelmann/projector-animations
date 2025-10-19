@@ -1,33 +1,56 @@
 {
-    "MQTT-Config": {
-        "IP": "192.168.188.105",
-        "PORT": "9001",
-        "CLIENT-ID": "Test",
-        "USER": "jonathan",
-        "PASSWORD": "iiius_admin"
-    },
-    "MQTT-ANIMATION-CANCEL": [
-        {
-            "SUBSCRIBE": "system/led/custom",
-            "PAYLOAD": "Important Key value in Message",
-            "DEFAULT-IMAGE": "Path Folder with Default"
-        }
-    ],
-    "MQTT-ANIMATION-LOOP": [
-        {
-            "SUBSCRIBE": "system/led/custom",
-            "PAYLOAD": "Important Key value in Message",
-            "IMAGES": "Path Folder with Images for animation",
-            "ANIMATION-DURATION": "ANimation time for one Cycle"
-        }
-    ],
-    "MQTT-ANIMATION-COUNT": [
-        {
-            "SUBSCRIBE": "system/led/custom",
-            "PAYLOAD": "Important Key value in Message",
-            "IMAGES": "Path Folder with Images for animation",
-            "ANIMATION-DURATION": "ANimation time for one Cycle",
-            "ANIMATION-COUNT" : 10
-        }
-    ]
+	"MQTT-Config": {
+		"IP": "127.0.0.1",
+		"PORT": "9001",
+		"CLIENT-ID": "user_1",
+		"USER": "user_1",
+		"PASSWORD": "password_1",
+		"PROTOCOL": "mqtt"
+	},
+	"MQTT-ANIMATION-CANCEL": [
+		{
+			"SUBSCRIBE": "system/status",
+			"PAYLOAD": "Message for Cancel",
+			"DEFAULT-IMAGE": "Path Folder with Default"
+		},
+		{
+			"SUBSCRIBE": "system",
+			"PAYLOAD": "other payload for cancel",
+			"DEFAULT-IMAGE": "Path Folder with Default"
+		}
+	],
+	"MQTT-ANIMATION-LOOP": [
+		{
+			"SUBSCRIBE": "system/led",
+			"PAYLOAD": "\"LED\" = \"Red\"",
+			"IMAGES": "res://Animations/Test/",
+			"ANIMATION-DURATION": 0.5
+		}
+	],
+	"MQTT-ANIMATION-COUNT": [
+		{
+			"SUBSCRIBE": "system/status",
+			"PAYLOAD": "Start Loop",
+			"IMAGES": "Path Folder with Images for animation",
+			"DEFAULT-IMAGE": "Path Folder with Default image displayed after animation count is done",
+			"ANIMATION-DURATION": 2.0,
+			"ANIMATION-COUNT": 10.0
+		},
+		{
+			"SUBSCRIBE": "system/status",
+			"PAYLOAD": "\"COUNT\": 10",
+			"IMAGES": "Path Folder with Images for animation",
+			"DEFAULT-IMAGE": "Path Folder with Default image displayed after animation count is done",
+			"ANIMATION-DURATION": 2.0,
+			"ANIMATION-COUNT": 10.0
+		},
+		{
+			"SUBSCRIBE": "system",
+			"PAYLOAD": "start count",
+			"IMAGES": "Path Folder with Images for animation",
+			"DEFAULT-IMAGE": "Path Folder with Default image displayed after animation count is done",
+			"ANIMATION-DURATION": 2.0,
+			"ANIMATION-COUNT": 10.0
+		}
+	]
 }
