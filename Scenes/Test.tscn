@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b25edawcrlfs8"]
+[gd_scene load_steps=6 format=3 uid="uid://b25edawcrlfs8"]
 
 [ext_resource type="Script" uid="uid://o6uoy41mwief" path="res://addons/mqtt/mqtt.gd" id="1_gxb1y"]
 [ext_resource type="Script" uid="uid://dbnwa0yi6k16x" path="res://Scripts/mqtt_controller.gd" id="2_0dy5s"]
 [ext_resource type="Script" uid="uid://bio561l6dh6g2" path="res://Scripts/config_loader.gd" id="3_0dy5s"]
 [ext_resource type="Script" uid="uid://ccdnndp3hi17k" path="res://Scripts/AnimationController.gd" id="4_f2nln"]
+[ext_resource type="Script" uid="uid://bcgf4nbtsooq5" path="res://Scripts/PathManager.gd" id="5_efk68"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -15,13 +16,17 @@ client_id = "Test"
 script = ExtResource("2_0dy5s")
 animationController = NodePath("../AnimationController")
 
-[node name="ConfigLoader" type="Node" parent="."]
+[node name="ConfigLoader" type="Node" parent="." node_paths=PackedStringArray("pathManager")]
 script = ExtResource("3_0dy5s")
+pathManager = NodePath("../PathManager")
 
-[node name="AnimationController" type="Node2D" parent="." node_paths=PackedStringArray("text_rect")]
-position = Vector2(6, 7)
+[node name="AnimationController" type="Node" parent="." node_paths=PackedStringArray("text_rect", "pathManager")]
 script = ExtResource("4_f2nln")
 text_rect = NodePath("../CanvasLayer/TextureRect")
+pathManager = NodePath("../PathManager")
+
+[node name="PathManager" type="Node" parent="."]
+script = ExtResource("5_efk68")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

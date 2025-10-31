@@ -10,7 +10,7 @@ const AnimationController = preload("res://Scripts/AnimationController.gd")
 # This variable will hold a reference to our MQTT client node.
 @onready var mqtt_client = get_node("../MQTT_Client")
 
-@export var animationController :AnimationController
+@export var animationController : AnimationController
 
 
 var mqtt_config
@@ -127,16 +127,15 @@ func _handle_message(topic: String, message: String) -> void:
 	for animationConfig in relevant_subscriber:
 		if animationConfig is AnimationCancel:
 			if message.find(animationConfig.payload) != -1:
-				print("Cancel Animation Subscribed")
+				animationController.cancel_animation(animationConfig)
 				break
 
 		elif animationConfig is AnimationLoop:
 			if message.find(animationConfig.payload) != -1:
-				print("Loop Animation Subscribed")
 				animationController.start_loop_animation(animationConfig)
 				break
 
 		elif animationConfig is AnimationCount:
 			if message.find(animationConfig.payload) != -1:
-				print("Count Animation Subscribed")
+				animationController.start_count_animation(animationConfig)
 				break
