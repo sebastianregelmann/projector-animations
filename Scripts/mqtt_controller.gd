@@ -22,6 +22,8 @@ var animation_cancel_configs :Array
 func _ready() -> void:
 	#Get the mqtt config from the config loader
 	var mqtt_config_loader = get_parent().get_node("ConfigLoader")
+	if(mqtt_config_loader.start_loading == false):
+		return
 	mqtt_config = mqtt_config_loader.mqtt_config
 
 	#get the animation configs from the config loader
