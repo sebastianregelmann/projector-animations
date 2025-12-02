@@ -1,0 +1,29 @@
+{
+    "MQTT_Config": {
+        "IP": "127.0.0.1",
+        "PORT": 9001,
+        "USE_WEBSOCKET": true,
+        "USERNAME": "Test",
+        "PASSWORD": "passwort"
+    },
+    "UNLOCK_MESSAGES": [
+        {
+            "TOPIC": "interaction/delivery",
+            "PAYLOAD": "\"status\":\"start\""
+        },
+        {
+            "TOPIC": "interaction/delivery",
+            "PAYLOAD": "\"status\":\"success\""
+        }
+    ],
+    "LOCK_MESSAGES": [
+        {
+            "TOPIC": "interaction/receiving",
+            "PAYLOAD": "\"status\":\"start\""
+        },
+        {
+            "TOPIC": "interaction/receiving",
+            "PAYLOAD": "\"status\":\"success\""
+        }
+    ]
+}
