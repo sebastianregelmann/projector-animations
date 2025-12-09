@@ -144,26 +144,35 @@ func load_default_image(path: String):
 
 
 func load_images(path: String) -> void:
-
     var absolute_path = pathManager.get_image_path(path)
     textures.clear()
-    #open folder
+
     var dir := DirAccess.open(absolute_path)
-    
-    #loop over each file
+    if dir == null:
+        push_error("Failed to open directory: " + absolute_path)
+        return
+
+    var files := []
+
     dir.list_dir_begin()
     var file_name = dir.get_next()
 
     while file_name != "":
         if not dir.current_is_dir():
-            # Check if file has a valid image extension
             var ext = file_name.get_extension().to_lower()
             if ext in ["png", "jpg", "jpeg"]:
-                var tex = load_texture_any_path(absolute_path.path_join(file_name))
-                textures.append(tex)
-        
+                files.append(file_name)
         file_name = dir.get_next()
     dir.list_dir_end()
+
+    # SORT FILE LIST → crucial for Raspberry Pi
+    files.sort()
+
+    # Load textures in correct order
+    for f in files:
+        var tex = load_texture_any_path(absolute_path.path_join(f))
+        if tex:
+            textures.append(tex)
 
 
 

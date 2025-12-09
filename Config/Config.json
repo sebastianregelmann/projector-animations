@@ -1,35 +1,52 @@
 {
-	"MQTT-Config": {
-		"IP": "127.0.0.1",
-		"PORT": "9001",
-		"CLIENT-ID": "user_1",
-		"USER": "user_1",
-		"PASSWORD": "password_1",
-		"PROTOCOL": "mqtt"
-	},
-	"MQTT-ANIMATION-CANCEL": [
-		{
-			"SUBSCRIBE": "system/status",
-			"PAYLOAD": "Message for Cancel",
-			"DEFAULT-IMAGE": "Animations/Default_Image"
-		}
-	],
-	"MQTT-ANIMATION-LOOP": [
-		{
-			"SUBSCRIBE": "system/led",
-			"PAYLOAD": "\"LED\" = \"Red\"",
-			"IMAGES": "Animations/Test",
-			"ANIMATION-DURATION": 0.5
-		}
-	],
-	"MQTT-ANIMATION-COUNT": [
-		{
-			"SUBSCRIBE": "system/status",
-			"PAYLOAD": "Start Count",
-			"IMAGES": "Animations/Test",
-			"DEFAULT-IMAGE": "Animations/Default_Image",
-			"ANIMATION-DURATION": 1.0,
-			"ANIMATION-COUNT": 5
-		}
-	]
+    "MQTT-Config": {
+        "IP": "192.168.188.105",
+        "PORT": "9001",
+        "CLIENT-ID": "user_1",
+        "USER": "jonathan",
+        "PASSWORD": "iiius_admin",
+        "PROTOCOL": "ws"
+    },
+    "MQTT-ANIMATION-CANCEL": [
+        {
+            "SUBSCRIBE": "transit/drive/stop",
+            "PAYLOAD": "\"command\":\"stop\"",
+            "DEFAULT-IMAGE": "Animations/Default_Black"
+        },
+        {
+            "SUBSCRIBE": "transit/drive/start",
+            "PAYLOAD": "\"command\":\"start\"",
+            "DEFAULT-IMAGE": "Animations/Default_Black"
+        }
+    ],
+    "MQTT-ANIMATION-LOOP": [
+        {
+            "SUBSCRIBE": "transit/drive",
+            "PAYLOAD": "\"direction\":\"forward\"",
+            "IMAGES": "Animations/Straight",
+            "ANIMATION-DURATION": 5.0
+        },
+        {
+            "SUBSCRIBE": "transit/turn",
+            "PAYLOAD": "\"direction\":\"left\"",
+            "IMAGES": "Animations/Sharp_Left",
+            "ANIMATION-DURATION": 0.5
+        },
+        {
+            "SUBSCRIBE": "transit/turn",
+            "PAYLOAD": "\"direction\":\"right\"",
+            "IMAGES": "Animations/Sharp_Right",
+            "ANIMATION-DURATION": 0.5
+        }
+    ],
+    "MQTT-ANIMATION-COUNT": [
+        {
+            "SUBSCRIBE": "system/status",
+            "PAYLOAD": "Start Count",
+            "IMAGES": "Animations/Test",
+            "DEFAULT-IMAGE": "Animations/Default_Image",
+            "ANIMATION-DURATION": 1.0,
+            "ANIMATION-COUNT": 5
+        }
+    ]
 }
