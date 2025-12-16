@@ -8,14 +8,19 @@ CONFIG_PATH = "Config.json"
 UNLOCK_ARRAY = "UNLOCK_MESSAGES"
 LOCK_ARRAY = "LOCK_MESSAGES"
 
-PIN_LOCK = 21
-
 
 #Class to store information about MQTT messages
 @dataclass
 class MQTT_MESSAGE:
     TOPIC: str
     PAYLOAD: str
+    
+#Class to store information about MQTT messages
+@dataclass
+class MQTT_MESSAGE_CONFIG:
+    TOPIC: str
+    PAYLOAD: str
+    PIN : int
 
 
 # --- Methods for loading data from config json ---
@@ -45,12 +50,13 @@ def load_mqtt_messages(path_config_file:str, message_array: str):
     data_array = config[message_array]    
     
     #create array of messages
-    messages: list[MQTT_MESSAGE] = []
+    messages: list[MQTT_MESSAGE_CONFIG] = []
 
     for entry in data_array:
-        msg = MQTT_MESSAGE(
+        msg = MQTT_MESSAGE_CONFIG(
             TOPIC=entry["TOPIC"],
-            PAYLOAD=entry["PAYLOAD"]
+            PAYLOAD=entry["PAYLOAD"],
+            PIN = entry["PIN"]
         )
         messages.append(msg)
 
@@ -111,7 +117,7 @@ def handle_incoming_message(message:MQTT_MESSAGE):
         if message_to_check.TOPIC == message.TOPIC:
             #check if payload contains matching string
             if message_to_check.PAYLOAD in message.PAYLOAD:
-                unlock()
+                unlock(message_to_check.PIN)
                 return
             
     #check for locking messages
@@ -120,26 +126,46 @@ def handle_incoming_message(message:MQTT_MESSAGE):
         if message_to_check.TOPIC == message.TOPIC:
             #check if payload contains matching string
             if message_to_check.PAYLOAD in message.PAYLOAD:
-                lock()
+                lock(message_to_check.PIN)
                 return
 
 
 # --- Lock Handling ---
-def unlock():
+def unlock(pin : int):
     print("Unlocking Lock")
-    lock_pin.on()   # HIGH
+    pin_dictionary[pin].on()  # HIGH
 
 
 
-def lock():
+def lock(pin: int):
     print("Locking Lock")
-    lock_pin.off()  # LOW
+    pin_dictionary[pin].off()  # LOW
 
 
 
-#enable GPIO for controlling the Lock
-lock_pin = LED(PIN_LOCK)
+def get_unique_pins(unlock_messages, lock_messages):
+    #Get all used pins from the config file
+    all_messages = []
+    for x in unlock_messages:
+        all_messages.append(x)
+    for x in lock_messages:
+        all_messages.append(x)
+    
+    unique_pins = {msg.PIN for msg in all_messages}
+    return unique_pins
 
+
+def initialize_pins_gpio(unique_pins):
+    pin_dictionary = {}
+    for pin in unique_pins:
+        pin_dictionary[pin] = LED(pin) 
+
+
+    #set all on low (locked)
+    for pin in unique_pins:
+        pin_dictionary[pin].off()
+    
+    return pin_dictionary
 
 #load config for MQTT
 IP, PORT, PROTOCOL, USERNAME, PASSWORD = load_mqqt_config(CONFIG_PATH)
@@ -150,6 +176,14 @@ client = create_mqtt_client(IP, PORT, PROTOCOL, USERNAME, PASSWORD)
 #load messages to subscribe to
 unlock_messages = load_mqtt_messages(CONFIG_PATH,UNLOCK_ARRAY )
 lock_messages = load_mqtt_messages(CONFIG_PATH, LOCK_ARRAY)
+
+
+#load all unique pins from the config
+uniqe_pins = get_unique_pins(unlock_messages, lock_messages)
+
+#convert unique pins in dictionary (pin, GPIO)
+pin_dictionary = initialize_pins_gpio(uniqe_pins)
+
 
 #Start client background thread
 client.loop_start()
@@ -163,5 +197,6 @@ except KeyboardInterrupt:
     print("Exiting...")
     client.loop_stop()
     # Release pin and close handle
-    lgpio.gpio_release(h, PIN_LOCK)
-    lgpio.gpiochip_close(h)
+    for pin in unique_pins:
+        lgpio.gpio_release(h, pin)
+        lgpio.gpiochip_close(h)

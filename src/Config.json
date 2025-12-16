@@ -9,21 +9,25 @@
     "UNLOCK_MESSAGES": [
         {
             "TOPIC": "interaction/delivery",
-            "PAYLOAD": "\"status\":\"start\""
+            "PAYLOAD": "\"status\":\"start\"",
+            "PIN" : 21
         },
         {
             "TOPIC": "interaction/delivery",
-            "PAYLOAD": "\"status\":\"success\""
+            "PAYLOAD": "\"status\":\"success\"",
+            "PIN" : 21
         }
     ],
     "LOCK_MESSAGES": [
         {
             "TOPIC": "interaction/receiving",
-            "PAYLOAD": "\"status\":\"start\""
+            "PAYLOAD": "\"status\":\"start\"",
+            "PIN" : 21
         },
         {
             "TOPIC": "interaction/receiving",
-            "PAYLOAD": "\"status\":\"success\""
+            "PAYLOAD": "\"status\":\"success\"",
+            "PIN" : 21
         }
     ]
 }
