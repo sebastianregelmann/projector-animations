@@ -6,7 +6,6 @@ from dataclasses import dataclass
 
 CONFIG_PATH = "Config.json"
 UNLOCK_ARRAY = "UNLOCK_MESSAGES"
-LOCK_ARRAY = "LOCK_MESSAGES"
 
 
 #Class to store information about MQTT messages
@@ -80,7 +79,7 @@ def create_mqtt_client(IP, PORT, PROTOCOL, USERNAME, PASSWORD):
     return client
 
 
-def subscribe_to_messages(messages):
+def subscribe_to_messages(client, messages):
     #only subscribe to unique topics
     unique_topics = {msg.TOPIC for msg in messages} 
     
@@ -93,8 +92,7 @@ def subscribe_to_messages(messages):
 # --- MQTT Event Handlers ---
 def on_connect(client, userdata, flags, rc, properties=None):
     print("Connected with result code:", rc)
-    subscribe_to_messages(unlock_messages)
-    subscribe_to_messages(lock_messages)
+    subscribe_to_messages(client, unlock_messages)
 
     
 def on_message(client, userdata, msg):
@@ -120,20 +118,13 @@ def handle_incoming_message(message:MQTT_MESSAGE):
                 unlock(message_to_check.PIN)
                 return
             
-    #check for locking messages
-    for message_to_check in lock_messages:
-        #check for topic
-        if message_to_check.TOPIC == message.TOPIC:
-            #check if payload contains matching string
-            if message_to_check.PAYLOAD in message.PAYLOAD:
-                lock(message_to_check.PIN)
-                return
-
 
 # --- Lock Handling ---
 def unlock(pin : int):
     print("Unlocking Lock")
     pin_dictionary[pin].on()  # HIGH
+    time.sleep(0.1)
+    lock(pin=pin)
 
 
 
@@ -143,12 +134,10 @@ def lock(pin: int):
 
 
 
-def get_unique_pins(unlock_messages, lock_messages):
+def get_unique_pins(unlock_messages):
     #Get all used pins from the config file
     all_messages = []
     for x in unlock_messages:
-        all_messages.append(x)
-    for x in lock_messages:
         all_messages.append(x)
     
     unique_pins = {msg.PIN for msg in all_messages}
@@ -167,6 +156,7 @@ def initialize_pins_gpio(unique_pins):
     
     return pin_dictionary
 
+
 #load config for MQTT
 IP, PORT, PROTOCOL, USERNAME, PASSWORD = load_mqqt_config(CONFIG_PATH)
 
@@ -175,11 +165,9 @@ client = create_mqtt_client(IP, PORT, PROTOCOL, USERNAME, PASSWORD)
 
 #load messages to subscribe to
 unlock_messages = load_mqtt_messages(CONFIG_PATH,UNLOCK_ARRAY )
-lock_messages = load_mqtt_messages(CONFIG_PATH, LOCK_ARRAY)
-
 
 #load all unique pins from the config
-uniqe_pins = get_unique_pins(unlock_messages, lock_messages)
+uniqe_pins = get_unique_pins(unlock_messages)
 
 #convert unique pins in dictionary (pin, GPIO)
 pin_dictionary = initialize_pins_gpio(uniqe_pins)
