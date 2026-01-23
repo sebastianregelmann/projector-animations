@@ -1,7 +1,7 @@
 # Make executable
-```chmod +x ProjectorAnimation.arm64```
+```chmod +x ProjectorAnimations.arm64```
 
-```./ProjectorAnimation.arm64```
+```./ProjectorAnimations.arm64```
 
 
 # Folder Structure
