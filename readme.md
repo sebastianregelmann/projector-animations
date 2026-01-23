@@ -1,34 +1,7 @@
-# Configs
+# Branches
+* [MQTT-Test Server](https://github.com/sebastianregelmann/projector-animations/tree/MQTT-Test-Server)
 
-Raspberry Pi Login Data:
-host: projectorpi.local
-user: projector
-passwort: passwort
+* [Animation Creation](https://github.com/sebastianregelmann/projector-animations/tree/Animation-Creation)
+* [Animation Player]( https://github.com/sebastianregelmann/projector-animations/tree/Animation-Player)
+* [MQTT Paketfächer](https://github.com/sebastianregelmann/projector-animations/tree/MQTT_LOCK)
 
-# Make executable
-chmod +x ProjectorAnimation.arm64
-./ProjectorAnimation.arm64
-
-
-# Folder Structure
-
-root/
-├── Executable/
-│  
-├── Config/
-│   ├── Config.json
-│
-├── Animations
-    ├── Animation_1
-    │   ├── 001.png
-    │   ├── 002.png
-    │   ├── ....png
-    ├── DefaultImage_1
-    │   ├── Image.png
-    │
-    ├── Animation_2
-    │   ├── 001.png
-    │   ├── 002.png
-    │   ├── ....png
-    ├── DefaultImage_2
-        ├── Image.png
